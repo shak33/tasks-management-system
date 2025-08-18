@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Task } from './task.model';
+import { CreateTaskDto } from './create-task.dto';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class TasksService {
@@ -10,6 +12,17 @@ export class TasksService {
   }
 
   findOne(id: string): Task | undefined {
-    return this.tasks.find(task => task.id === id);
+    return this.tasks.find((task) => task.id === id);
+  }
+
+  create(data: CreateTaskDto): Task {
+    const task: Task = {
+      id: randomUUID(),
+      ...data,
+    };
+
+    this.tasks.push(task);
+
+    return task;
   }
 }
