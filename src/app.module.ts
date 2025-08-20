@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TasksModule } from './tasks/tasks.module';
 import { appConfig } from './config/app.config';
 import { ConfigModule } from '@nestjs/config';
+import { appConfigSchema } from './config/config.types';
 
 @Module({
   controllers: [AppController],
@@ -11,6 +12,8 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       load: [appConfig],
+      validationSchema: appConfigSchema,
+      validationOptions: {}
     }),
     TasksModule,
   ],
